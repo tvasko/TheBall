@@ -15,5 +15,5 @@ TheBall
 
 #### FALL BALL
 Освен веќе спомнатите копчиња, играта Fall Ball има можност и за одбирање на тежина на играта, односно три нивоа: Easy, Medium и Hard.
-![Menu](i.imgur.com/48CKDu2.png)
+![Menu](http://i.imgur.com/48CKDu2.png)
 
