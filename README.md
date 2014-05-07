@@ -155,4 +155,3 @@ TheBall
 
 За реализацијата на играта се имплементирани 6 класи (Ball, BallCollection, Basket, Player, Shelf, Wall) и 9 форми (CatchBall, CatchStart, EndGame, FallBall, FallScores, FallStart, FlappyBall, FlappyStart, Form1).
 Се надеваме дека ќе ви се допаднат сите три игри и ви посакуваме пријатна игра! 
-
