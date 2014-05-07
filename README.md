@@ -22,3 +22,55 @@ TheBall
 
 
 
+
+
+private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!pause)
+            {
+                if (!ball.endGame())
+                {
+                    bool polica = true;
+                    intervalScore++;
+                    if (intervalScore == 50)
+                    {
+                        intervalScore = 0;
+                        Score++;
+                    }
+                    for (int i = 0; i < shelfList.Count(); i++)
+                    {
+                        if (i % 2 == 0)
+                            shelfList[i].Move(3, heigh, shelfList[i].width, shelfList[i].x);
+                        else
+                            shelfList[i].Move(3, heigh, width - shelfList[i - 1].width - 50, shelfList[i - 1].width + 50);
+                        if (ball.naPolica(shelfList[i]) && polica)
+                        {
+                            t = i;
+                            polica = false;
+                            ball.Move(5, width, heigh, left, right, shelfList[i]);
+                        }
+
+                    }
+                    if (polica)
+                    {
+                        if (t % 2 != 0)
+                            ball.Move(5, width, heigh, left, right, shelfList[t - 1]);
+                        else
+                            ball.Move(5, width, heigh, left, right, shelfList[t + 1]);
+
+                    }
+                    label2.Text = Score.ToString();
+                    panel1.Invalidate(kvadrat, true);
+                }
+                else
+                {
+                    endGame();
+                }
+            }
+            else
+            {
+                timer1.Stop();
+            }
+        }
+
+
