@@ -73,3 +73,86 @@ TheBall
 Кога ќе се изгуби, се отвара нова форма во која треба да се внеси име на играчот за да се запиши неговиот резултат. Резултатот на играчот ќе биде запишан во High Scores само ако е помеѓу првите петнаесет. 
 
 ![](http://i.imgur.com/jSFZK2e.png)
+
+Ако се притисни копчето Play Again, играта се игра повторно, а ако се притисне копчето Exit Game играта се исклучува.
+Со притискање на копчето High Scores од почетното мени, се отвара нова форма во која се прикажуваат петнаесетте највисоки резултати. Резултатите се запишуваат во посебна .txt датотека за секоја игра и за секое ниво и потоа се читаат од нив. Формите за внесување име при завршување на игра и за прегледување на најдобрите играчи се користат во сите три игри. 
+
+![](http://i.imgur.com/wEUzgT2.png)
+
+Со притискање на копчето How To Play се отвара MessageBox во кој што се напишани правилата на играта, копчиња за играње и начин на играње. 
+
+![](http://i.imgur.com/VYpRVTC.png)
+
+=======
+
+###FLAPPY BALL
+
+Со стартување на играта Flappy Ball се отвара мени слично на претходната игра. Со притискање на копчето Start Game, се отвара нова форма и започнува играта. 
+
+Изглед на играта:
+
+![](http://i.imgur.com/Ks4VSvN.png)
+
+Функција со која што се иницијализира почетната состојба на играта, и која се повикува при почеток на нова игра. 
+
+	public void newGame()
+        {
+            exitGameBtn = true;
+            timeStart = 3;
+            timer1.Start();
+            lblTimeStart.Visible = true;
+            lblgameStartin.Visible = true;
+            Score = 0;
+            upWalls = new List<Wall>();
+            downWalls = new List<Wall>();
+            playersScore = new List<Player>();
+            ball = new Ball(250, 200);
+            wall = new Wall(600, 0, 200);
+            upWalls.Add(wall);
+            wall = new Wall(600, 325, this.Height - 65 - 200);
+            downWalls.Add(wall);
+
+            wall = new Wall(750, 0, 100);
+            upWalls.Add(wall);
+            wall = new Wall(750, 225, this.Height - 65 - 100);
+            downWalls.Add(wall);
+
+            wall = new Wall(900, 0, 220);
+            upWalls.Add(wall);
+            wall = new Wall(900, 345, this.Height - 65 - 220);
+            downWalls.Add(wall);
+
+            wall = new Wall(1050, 0, 80);
+            upWalls.Add(wall);
+            wall = new Wall(1050, 205, this.Height - 65 - 80);
+            downWalls.Add(wall);
+        }
+Останатите копчиња од менито на играта ја имаат истата функционалност како и копчињата на претходната игра.
+
+=======
+
+###CATCH BALL
+
+Со стартување на играта Catch Ball се отвара мени слично на претходната игра. Со притискање на копчето Start Game, се отвара нова форма и започнува играта. Целта на оваа игра е фаќање на што е можно повеќе топчиња кои паѓаат. Притоа играта завршува ако не бидат фатени пет топчиња. Едно топче е фатено ако влезе во средината од кошот. 
+ 
+![](http://i.imgur.com/0p6J0UR.png)
+
+За оваа и за останатите игри се користи функција writeFile() која што ги подредува резултатите на играчите и ги запишува во точната датотека само оние најдобри петнаесет.
+
+	private void writeFile()
+        {
+            playersScore = playersScore.OrderByDescending(x => x.Score).ToList();
+            int pom = 0;
+            if (playersScore.Count >= 15) { pom = 15; }
+            else pom = playersScore.Count;
+            for (int i = 0; i < pom; i++)
+            {
+                sw.WriteLine(String.Format("{0},{1}", playersScore[i].Name, playersScore[i].Score));
+            }
+        }
+
+=======
+
+За реализацијата на играта се имплементирани 6 класи (Ball, BallCollection, Basket, Player, Shelf, Wall) и 9 форми (CatchBall, CatchStart, EndGame, FallBall, FallScores, FallStart, FlappyBall, FlappyStart, Form1).
+Се надеваме дека ќе ви се допаднат сите три игри и ви посакуваме пријатна игра! 
+
