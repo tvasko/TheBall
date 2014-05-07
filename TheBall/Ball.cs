@@ -91,7 +91,9 @@ namespace TheBall
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
         public bool endGame()
         {
