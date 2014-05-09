@@ -55,10 +55,12 @@ namespace TheBall
 
             ScoreUpSound = new SoundPlayer(TheBall.Properties.Resources.ScoreUp);
             DoubleBuffered = true;
-            rand = new Random();
+            
            
         }
         int yy = 0;
+        int newHeight;
+        int newHeight2;
         private void timer1_Tick(object sender, EventArgs e)
         {
             interval++;
@@ -93,44 +95,30 @@ namespace TheBall
                     {
                         ball.y += 3;
                     }
-                    if (ball.y + 65 > this.Height)
-                    {
-                        ball.y = this.Height - 65;
-                    }
                     yy = ball.y + 1;
-                    int newHeight = rand.Next(50, 220);
-                    int newHeight2 = 450 - 125 - newHeight;
-                    foreach (Wall w in upWalls)
+                    
+                    for (int i = 0; i < upWalls.Count; i++)
                     {
-                        if (ball.x == w.x)
+                        if (ball.x == upWalls[i].x)
                         {
                             Score++;
                             ScoreUpSound.Play();
                         }
-                        w.Move(this.Height, this.Width);
-                        if (ball.TouchUP(w))
+                        upWalls[i].Move(this.Height, this.Width);
+                        downWalls[i].Move(this.Height, this.Width);
+                        if (ball.TouchUP(upWalls[i]) || ball.TouchDown(downWalls[i]))
                         {
                             gameOver();
                         }
-                        if (w.isGone())
+                        if (upWalls[i].isGone())
                         {
-                            w.height = newHeight;
+                            newHeight = rand.Next(50, 220);
+                            newHeight2 = 450 - 125 - newHeight;
+                            upWalls[i].height = newHeight;
+                            downWalls[i].y = newHeight + 125;
+                            downWalls[i].height = newHeight2;
                         }
                     }
-                    foreach (Wall w in downWalls)
-                    {
-                        w.Move(this.Height, this.Width);
-                        if (ball.TouchDown(w))
-                        {
-                            gameOver();
-                        }
-                        if (w.isGone())
-                        {
-                            w.y = newHeight + 125;
-                            w.height = newHeight2;
-                        }
-                    }
-                    
                 }
             }
             Invalidate();
@@ -175,6 +163,7 @@ namespace TheBall
         public void newGame()
         {
             exitGameBtn = true;
+            rand = new Random();
             timeStart = 3;
             timer1.Start();
             lblTimeStart.Visible = true;
